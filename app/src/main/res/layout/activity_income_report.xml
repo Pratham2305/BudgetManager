@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="#6E7B8B"
     android:orientation="vertical"
-
-    tools:context=".ExpenseReport">
+    tools:context=".IncomeReport">
 
     <TextView
         android:id="@+id/textView5"
@@ -15,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
-        android:text="Total Expense"
+        android:text="Total Income"
         android:textColor="#ffffff"
         android:textSize="30sp"
         android:textStyle="bold" />

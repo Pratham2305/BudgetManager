@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetAmount"></activity>
+        <activity android:name=".Target" />
+        <activity android:name=".IncomeReport" />
+        <activity android:name=".SetAmount" />
         <activity android:name=".ExpenseReport" />
         <activity android:name=".IncomeCategory" />
         <activity android:name=".ExpenseCategory" />
         <activity android:name=".AddingActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

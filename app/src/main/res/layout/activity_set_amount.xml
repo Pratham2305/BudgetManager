@@ -25,7 +25,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/rupee"
         android:ems="10"
-        android:inputType="number|numberDecimal" />
+        android:inputType="number" />
 
     <LinearLayout
         android:layout_width="match_parent"

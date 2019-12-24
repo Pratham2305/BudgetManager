@@ -62,7 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                tools:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +83,8 @@
                 android:text="INCOME :"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/expense"
@@ -96,28 +98,34 @@
                 android:text="EXPENSES :"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tvIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:drawableLeft="@drawable/small_rupee"
+                android:text="TextView"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvExpenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:drawableLeft="@drawable/small_rupee"
+                android:text="TextView"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -126,16 +134,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="325dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="25dp"
             android:clickable="true"
             app:backgroundTint="#104E8B"
             app:elevation="50dp"
             app:srcCompat="@drawable/ic_add" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="History  :-"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 

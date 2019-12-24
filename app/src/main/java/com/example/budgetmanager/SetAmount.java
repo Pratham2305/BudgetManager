@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -22,11 +23,16 @@ import static android.graphics.Color.TRANSPARENT;
 
 public class SetAmount extends AppCompatActivity {
 
+    DbHelper myDb;
+
+
+
     FloatingActionButton btdone;
     String date;
     String Amount;
     EditText etamt;
     String category;
+    String cat_type;
 
     TextView tvcategoryname;
     ImageView ivcategory;
@@ -37,6 +43,8 @@ public class SetAmount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_amount);
+        myDb= new DbHelper(this);
+
 
         DisplayDate = findViewById(R.id.DisplayDate);
         etamt = findViewById(R.id.etamt);
@@ -180,6 +188,19 @@ public class SetAmount extends AppCompatActivity {
 
         btdone = findViewById(R.id.btdone);
 
+        AddData();
+
+
+    }
+
+
+
+
+
+
+
+    public void AddData() {
+
 
         btdone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,31 +208,28 @@ public class SetAmount extends AppCompatActivity {
 
                 Amount = etamt.getText().toString();
 
-                Intent intent = new Intent(SetAmount.this,com.example.budgetmanager.MainActivity.class);
-                intent.putExtra("Date", date);
-                intent.putExtra("Category Name",category);
-                intent.putExtra("Amount",Amount);
-                startActivity(intent);
+                if (category.equals("Award") || category.equals("Salary")
+                        || category.equals("Investment") || category.equals("Gift") ||
+                        category.equals("Voucher") || category.equals("Lottery")
+                        || category.equals("Refund")) {
+                    cat_type = "Income";
+                } else
+                    cat_type = "Expense";
 
 
-                }
+                boolean in = myDb.insertData(cat_type, category, Amount, date);
 
-
-
-
-
-
-
-
-
-
+                if (in == true)
+                    Toast.makeText(SetAmount.this, "Data Added", Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(SetAmount.this, "Data not Added", Toast.LENGTH_LONG).show();}
 
 
 
+            }
 
         });
-};
+
 
     }
-
-
+}
