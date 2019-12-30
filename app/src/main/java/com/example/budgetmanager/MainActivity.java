@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int Total_Income=0;
     int Total_Expense=0;
     String ID,old_id="";
+    int d;
 
 
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView = findViewById(R.id.list);
         tvexpense = findViewById(R.id.tvExpenses);
         tvincome = findViewById(R.id.tvIncome);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
-
     }
 
     @Override
@@ -113,6 +113,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                Intent tar = new Intent(MainActivity.this,com.example.budgetmanager.Target.class);
                startActivity(tar);
+
+               break;
+
+           case R.id.report:
+
+               Intent rep= new Intent(MainActivity.this,com.example.budgetmanager.ReportActivity.class);
+               startActivity(rep);
 
                break;
 
@@ -171,24 +178,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         category = cursor.getString(2);
                         amount = cursor.getString(3);
                         date = cursor.getString(4);
-                        int d= Integer.parseInt(amount);
+                        d= Integer.parseInt(amount);
 
-
-                        if (old_id!=ID) {
-                            if (category.equals("Award") || category.equals("Salary")
-                                    || category.equals("Investment") || category.equals("Gift") ||
-                                    category.equals("Voucher") || category.equals("Lottery")
-                                    || category.equals("Refund")) {
-                                Total_Income = Total_Income + d;
-                            } else {
-                                Total_Expense = Total_Expense + d;
-                            }
+                        if (category.equals("Award") || category.equals("Salary")
+                                || category.equals("Investment") || category.equals("Gift") ||
+                                category.equals("Voucher") || category.equals("Lottery")
+                                || category.equals("Refund")){
+                            Total_Income+=d;
+                        }else {
+                            Total_Expense+=d;
                         }
-
-
-
-
-
+                        tvincome.setText(Integer.toString(Total_Income));
+                        tvexpense.setText(Integer.toString(Total_Expense));
 
 
                         arraylist.add(new History(date, category, amount));
@@ -222,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         arraylist.clear();
         loadDatabase();
+
+
     }
 
 
