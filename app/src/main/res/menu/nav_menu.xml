@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+
+        <item android:id="@+id/expense_report"
+              android:icon="@drawable/ex_nav"
+            android:title="Expense"></item>
+
+        <item android:id="@+id/income_report"
+            android:icon="@drawable/in_nav"
+            android:title="Income"></item>
+
+        <item android:id="@+id/target"
+            android:icon="@drawable/target_nav"
+            android:title="Target"></item>
+
+        <item android:id="@+id/report"
+            android:title="Report"
+            android:icon="@drawable/report">
+
+        </item>
+
+    </group>
+
+    <item android:title="Setting"
+        android:icon="@drawable/settings_nav"
+        android:id="@+id/setting">
+
+    </item>
+
+</menu>

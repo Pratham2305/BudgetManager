@@ -40,9 +40,7 @@ public class ReportActivity extends AppCompatActivity {
     Cursor cursor;
     DbHelper myDb;
     String ID,amount,category,date;
-    int d,i=0,j=0;
-    private String[] xData;
-    private Integer[] yData;
+    int d;
     PieChart pieChart;
     BarChart barChart;
     int a1=0,a2=0,a3=0,a4=0,a5=0,a6=0,a7=0,a8=0,a9=0,a10=0,a11=0,a12=0,a13=0;
