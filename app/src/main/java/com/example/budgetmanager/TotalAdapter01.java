@@ -1,6 +1,7 @@
 package com.example.budgetmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class TotalAdapter01 extends RecyclerView.Adapter<TotalAdapter01.ViewHold
 
 
     private ArrayList<Total_Category01> item;
+    private OnTapListener1 onTapListener;
 
 
 
@@ -52,7 +54,7 @@ public class TotalAdapter01 extends RecyclerView.Adapter<TotalAdapter01.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TotalAdapter01.ViewHolder holder,int position)
+    public void onBindViewHolder(@NonNull TotalAdapter01.ViewHolder holder, final int position)
     {
         holder.tvtitle.setText(item.get(position).getCategory_name());
         holder.tvamount.setText(item.get(position).getAmount());
@@ -87,13 +89,29 @@ public class TotalAdapter01 extends RecyclerView.Adapter<TotalAdapter01.ViewHold
         {
             holder.ivcat.setImageResource(R.drawable.voucher);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    }
+                if (onTapListener != null) {
+                    onTapListener.OnTapViewe(position);
 
 
+                }
+            }
+            });
+
+        }
 
     @Override
     public int getItemCount() {
         return item.size();
     }
+
+    public void setOnTapListener(OnTapListener1 onTapListener){
+        this.onTapListener=onTapListener;
+    }
+
 }
+
+

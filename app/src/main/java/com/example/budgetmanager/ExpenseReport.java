@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,10 +37,6 @@ public class ExpenseReport extends AppCompatActivity {
         setContentView(R.layout.activity_income_report);
 
         recyclerView = findViewById(R.id.list);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
 
         loadDatabase();
 
@@ -74,7 +71,65 @@ public class ExpenseReport extends AppCompatActivity {
         arraylist.add(new Total_Category("Sport",i13));
 
 
-        myAdapter = new TotalAdapter(this,arraylist);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+        myAdapter =new TotalAdapter(getParent(),arraylist);
+        ((TotalAdapter) myAdapter).setOnTapListener(new OnTapListener1() {
+            @Override
+            public void OnTapViewe(int position) {
+                Intent intent=new Intent(ExpenseReport.this,com.example.budgetmanager.Category_Info.class);
+                if (position==0){
+                    intent.putExtra("Category Type","auto");
+                }
+
+                else if (position==1){
+                    intent.putExtra("Category Type","bill");
+                }
+
+                else if (position==2){
+                    intent.putExtra("Category Type","entertainment");
+                }
+
+                else if (position==3){
+                    intent.putExtra("Category Type","food");
+                }
+
+                else if (position==4){
+                    intent.putExtra("Category Type","fuel");
+                }
+
+                else if (position==5){
+                    intent.putExtra("Category Type","general");
+                }
+                else if (position==6){
+                    intent.putExtra("Category Type","gift");
+                }
+                else if (position==7){
+                    intent.putExtra("Category Type","gym");
+                }
+                else if (position==8){
+                    intent.putExtra("Category Type","health");
+                }
+                else if (position==9){
+                    intent.putExtra("Category Type","holidays");
+                }
+                else if (position==10){
+                    intent.putExtra("Category Type","house");
+                }
+                else if (position==11){
+                    intent.putExtra("Category Type","clothes");
+                }
+                else if (position==12){
+                    intent.putExtra("Category Type","rent");
+                }
+                else if (position==13){
+                    intent.putExtra("Category Type","sport");
+                }
+                startActivity(intent);
+
+            }
+        });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(myAdapter);
 
 

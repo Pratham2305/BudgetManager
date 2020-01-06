@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class TotalAdapter extends RecyclerView.Adapter<TotalAdapter.ViewHolder>{
 
     private ArrayList<Total_Category> item;
+    private OnTapListener1 onTapListener;
 
 
 
@@ -51,7 +52,7 @@ public class TotalAdapter extends RecyclerView.Adapter<TotalAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TotalAdapter.ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull TotalAdapter.ViewHolder holder, final int position)
     {
         holder.tvtitle.setText(item.get(position).getCategory_name());
         holder.tvamount.setText(item.get(position).getAmount());
@@ -112,6 +113,18 @@ public class TotalAdapter extends RecyclerView.Adapter<TotalAdapter.ViewHolder>{
         {
             holder.ivcat.setImageResource(R.drawable.sport);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onTapListener != null) {
+                    onTapListener.OnTapViewe(position);
+
+
+                }
+            }
+        });
+
 
     }
 
@@ -120,5 +133,8 @@ public class TotalAdapter extends RecyclerView.Adapter<TotalAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return item.size();
+    }
+    public void setOnTapListener(OnTapListener1 onTapListener){
+        this.onTapListener=onTapListener;
     }
 }

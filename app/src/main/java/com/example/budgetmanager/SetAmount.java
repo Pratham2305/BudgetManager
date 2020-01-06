@@ -24,15 +24,13 @@ import static android.graphics.Color.TRANSPARENT;
 public class SetAmount extends AppCompatActivity {
 
     DbHelper myDb;
-
-
-
     FloatingActionButton btdone;
     String date;
     String Amount;
     EditText etamt;
     String category;
     String cat_type;
+    int year,month,day,month1;
 
     TextView tvcategoryname;
     ImageView ivcategory;
@@ -53,9 +51,9 @@ public class SetAmount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar. YEAR);
-                int month = cal.get(Calendar. MONTH);
-                int day = cal.get(Calendar. DAY_OF_MONTH);
+                year = cal.get(Calendar. YEAR);
+                month = cal.get(Calendar. MONTH);
+                day = cal.get(Calendar. DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(SetAmount.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,DateSetListener,year,month,day);
@@ -70,27 +68,12 @@ public class SetAmount extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 month=month+1;
-               date = dayOfMonth+" / "+month+" / "+year;
+                month1=month;
+               date = dayOfMonth+" / "+month1+" / "+year;
                 DisplayDate.setText(date);
 
             }
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         tvcategoryname = findViewById(R.id.tvcategoryname);
         ivcategory = findViewById(R.id.ivcategory);
 
@@ -189,16 +172,7 @@ public class SetAmount extends AppCompatActivity {
         btdone = findViewById(R.id.btdone);
 
         AddData();
-
-
     }
-
-
-
-
-
-
-
     public void AddData() {
 
 
@@ -208,24 +182,36 @@ public class SetAmount extends AppCompatActivity {
 
                 Amount = etamt.getText().toString();
 
-                if (category.equals("Award") || category.equals("Salary")
-                        || category.equals("Investment") || category.equals("Gift") ||
-                        category.equals("Voucher") || category.equals("Lottery")
-                        || category.equals("Refund")) {
-                    cat_type = "Income";
-                } else
-                    cat_type = "Expense";
+                if (Amount.isEmpty() || year==0) {
+                    Toast.makeText(SetAmount.this, "Kindly Enter All The Fields!!", Toast.LENGTH_LONG).show();
+                } else {
+
+                    if (category.equals("Award") || category.equals("Salary")
+                            || category.equals("Investment") || category.equals("Gift") ||
+                            category.equals("Voucher") || category.equals("Lottery")
+                            || category.equals("Refund")) {
+                        cat_type = "Income";
+                    } else
+                        cat_type = "Expense";
+
+                    String Dday = Integer.toString(day);
+                    String Mmonth= Integer.toString(month1);
+                    String Yyear= Integer.toString(year);
 
 
-                boolean in = myDb.insertData(cat_type, category, Amount, date);
+                    boolean in = myDb.insertData(cat_type,category,Amount,date,Dday,Mmonth,Yyear);
 
-                if (in == true)
-                    Toast.makeText(SetAmount.this, "Data Added", Toast.LENGTH_LONG).show();
-                else{
-                    Toast.makeText(SetAmount.this, "Data not Added", Toast.LENGTH_LONG).show();}
+                    if (in == true)
+                        Toast.makeText(SetAmount.this, "Data Added", Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(SetAmount.this, "Data not Added", Toast.LENGTH_LONG).show();
+                    }
+
+                    Intent intent=new Intent(SetAmount.this,com.example.budgetmanager.MainActivity.class);
+                    startActivity(intent);
 
 
-
+                 }
             }
 
         });

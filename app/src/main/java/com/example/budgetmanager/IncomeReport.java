@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,11 +31,7 @@ public class IncomeReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_report);
 
-        recyclerView = findViewById(R.id.list);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView = (RecyclerView) findViewById(R.id.list);
 
         loadDatabase();
 
@@ -56,19 +54,56 @@ public class IncomeReport extends AppCompatActivity {
         arraylist.add(new Total_Category01("Voucher",i7));
 
 
-        myAdapter = new TotalAdapter01(this,arraylist);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+        myAdapter =new TotalAdapter01(getParent(),arraylist);
+        ((TotalAdapter01) myAdapter).setOnTapListener(new OnTapListener1() {
+            @Override
+            public void OnTapViewe(int position) {
+                Intent intent=new Intent(IncomeReport.this,com.example.budgetmanager.Category_Info.class);
+                if (position==0){
+                    intent.putExtra("Category Type","Award");
+                }
+
+                else if (position==1){
+                    intent.putExtra("Category Type","Gift");
+                }
+
+                else if (position==2){
+                    intent.putExtra("Category Type","Investment");
+                }
+
+                else if (position==3){
+                    intent.putExtra("Category Type","Lottery");
+                }
+
+                else if (position==4){
+                    intent.putExtra("Category Type","Salary");
+                }
+
+                else if (position==5){
+                    intent.putExtra("Category Type","Refund");
+                }
+                else if (position==6){
+                    intent.putExtra("Category Type","Voucher");
+                }
+                startActivity(intent);
+
+            }
+        });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(myAdapter);
 
     }
 
-    public void loadDatabase(){
+    public void loadDatabase() {
 
-        myDb=new DbHelper(getApplicationContext());
+        myDb = new DbHelper(getApplicationContext());
         try {
 
             myDb.checkAndCopyDatabase();
             myDb.openDatabase();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
@@ -82,31 +117,25 @@ public class IncomeReport extends AppCompatActivity {
                         category = cursor.getString(2);
                         amount = cursor.getString(3);
 
-                        if (category.equals("Award")){
-                            a1+=Integer.parseInt(amount);
-                        }
-                        else if (category.equals("Gift")){
-                            a2+=Integer.parseInt(amount);
+                        if (category.equals("Award")) {
+                            a1 += Integer.parseInt(amount);
+                        } else if (category.equals("Gift")) {
+                            a2 += Integer.parseInt(amount);
 
-                        }
-                        else if (category.equals("Investment")){
-                            a4+=Integer.parseInt(amount);
+                        } else if (category.equals("Investment")) {
+                            a4 += Integer.parseInt(amount);
 
-                        }
-                        else if (category.equals("Lottery")){
-                            a3+=Integer.parseInt(amount);
+                        } else if (category.equals("Lottery")) {
+                            a3 += Integer.parseInt(amount);
 
-                        }
-                        else if (category.equals("Salary")){
-                            a5+=Integer.parseInt(amount);
+                        } else if (category.equals("Salary")) {
+                            a5 += Integer.parseInt(amount);
 
-                        }
-                        else if (category.equals("Refund")){
-                            a6+=Integer.parseInt(amount);
+                        } else if (category.equals("Refund")) {
+                            a6 += Integer.parseInt(amount);
 
-                        }
-                        else if (category.equals("Voucher")){
-                            a7+=Integer.parseInt(amount);
+                        } else if (category.equals("Voucher")) {
+                            a7 += Integer.parseInt(amount);
 
                         }
 
@@ -115,11 +144,9 @@ public class IncomeReport extends AppCompatActivity {
 
                 }
             }
-        }catch (SQLException e)   {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
     }
-
 }

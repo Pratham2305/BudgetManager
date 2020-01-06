@@ -6,24 +6,21 @@
     android:layout_height="match_parent"
     android:background="#6E7B8B"
     android:orientation="vertical"
-    tools:context=".IncomeCategory">
+    tools:context=".Category_Info">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvCat_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="Income Category"
+        android:text="Cat_Name'"
         android:textColor="#ffffff"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/info_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="15dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

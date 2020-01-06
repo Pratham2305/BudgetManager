@@ -26,6 +26,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COL3 = "SubCategory";
     public static final String COL4 = "Amount";
     public static final String COL5 = "Date";
+    public static final String COL6 = "Day";
+    public static final String COL7 = "Month";
+    public static final String COL8 = "Year";
     public static final int version = 1;
     private final Context mycontext;
     private SQLiteDatabase myDatabase;
@@ -44,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE BudgetTable (_id INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, SUBCATEGORY TEXT, AMOUNT TEXT, DATE TEXT) ";
+        String create = "CREATE TABLE BudgetTable (_id INTEGER PRIMARY KEY AUTOINCREMENT, CATEGORY TEXT, SUBCATEGORY TEXT, AMOUNT TEXT, DATE TEXT,DAY TEXT,MONTH TEXT,YEAR TEXT); ";
         db.execSQL(create);
 
 
@@ -122,7 +125,7 @@ super.close();
     }
 
 
-    public boolean insertData(String cat, String sub_cat, String amt, String date){
+    public boolean insertData(String cat, String sub_cat, String amt, String date,String day,String month,String year){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
@@ -130,6 +133,9 @@ super.close();
         contentValues.put(COL3,sub_cat);
         contentValues.put(COL4,amt);
         contentValues.put(COL5,date);
+        contentValues.put(COL6,day);
+        contentValues.put(COL7,month);
+        contentValues.put(COL8,year);
        long result =   db.insert(TABLE_NAME,null,contentValues);
 
        if (result == -1)

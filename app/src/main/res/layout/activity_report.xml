@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReportActivity"
-    android:orientation="vertical">
+    android:background="#6E7B8B"
+    android:orientation="vertical"
+    tools:context=".ReportActivity">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp">
 
 
     </com.github.mikephil.charting.charts.PieChart>
@@ -18,6 +20,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
-        android:layout_height="400dp"></com.github.mikephil.charting.charts.BarChart>
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"></com.github.mikephil.charting.charts.BarChart>
 
 </LinearLayout>
