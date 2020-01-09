@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -18,19 +19,22 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.Collections;
 
 import static android.graphics.Color.TRANSPARENT;
 
 public class SetAmount extends AppCompatActivity {
 
     DbHelper myDb;
+    DbHelperTarget targetDb;
     FloatingActionButton btdone;
     String date;
-    String Amount;
+    String Amount,amount;
     EditText etamt;
-    String category;
+    String category,target_amt;
     String cat_type;
-    int year,month,day,month1;
+    int year,month,day,month1,from_day,from_month,from_year,to_day,to_month,to_year,d,Total_Income,Total_Expense;
+    Cursor cursor;
 
     TextView tvcategoryname;
     ImageView ivcategory;
@@ -192,12 +196,119 @@ public class SetAmount extends AppCompatActivity {
                             || category.equals("Refund")) {
                         cat_type = "Income";
                     } else
+                    {
                         cat_type = "Expense";
+
+                    }
 
                     String Dday = Integer.toString(day);
                     String Mmonth= Integer.toString(month1);
                     String Yyear= Integer.toString(year);
 
+
+
+
+                    targetDb=new DbHelperTarget(getApplicationContext());
+                    try {
+
+                        targetDb.checkAndCopyDatabase();
+                        targetDb.openDatabase();
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    try {
+                        cursor = targetDb.QueryData("select * from TargetTable");
+                        if (cursor != null) {
+
+                            if (cursor.moveToFirst()) {
+
+
+                                    target_amt = cursor.getString(0);
+                                    from_day= Integer.parseInt(cursor.getString(1));
+                                    to_day=Integer.parseInt(cursor.getString(2));
+                                    from_month = Integer.parseInt(cursor.getString(3));
+                                    to_month = Integer.parseInt(cursor.getString(4));
+                                    from_year=Integer.parseInt(cursor.getString(5));
+                                    to_year=Integer.parseInt(cursor.getString(6));
+                            }
+                        }
+                    }catch (SQLException e)   {
+                        e.printStackTrace();
+                    }
+
+                    if (((from_day<=day)&&(day<=to_day))&&((from_month<=month1)&&(month1<=to_month))&&((from_year<=year)&&(year<=to_year))){
+
+                        myDb=new DbHelper(getApplicationContext());
+                        try {
+
+                            myDb.checkAndCopyDatabase();
+                            myDb.openDatabase();
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        try {
+                            cursor = myDb.QueryData("select * from BudgetTable");
+                            if (cursor != null) {
+
+                                if (cursor.moveToFirst()) {
+                                    Total_Income =0;
+                                    Total_Expense=0;
+
+                                    do {
+                                        category = cursor.getString(2);
+                                        amount = cursor.getString(3);
+                                        date = cursor.getString(4);
+                                        d = Integer.parseInt(amount);
+
+                                        if (category.equals("Award") || category.equals("Salary")
+                                                || category.equals("Investment") || category.equals("Gift") ||
+                                                category.equals("Voucher") || category.equals("Lottery")
+                                                || category.equals("Refund")) {
+                                            Total_Income += d;
+                                        } else {
+                                            Total_Expense += d;
+                                        }
+                                    } while (cursor.moveToNext());
+                                }
+                            }
+                        }catch (SQLException e)   {
+                            e.printStackTrace();
+                        }
+
+                        if (target_amt==null){
+
+                            boolean in = myDb.insertData(cat_type,category,Amount,date,Dday,Mmonth,Yyear);
+
+                            if (in == true)
+                                Toast.makeText(SetAmount.this, "Data Added", Toast.LENGTH_LONG).show();
+                            else {
+                                Toast.makeText(SetAmount.this, "Data not Added", Toast.LENGTH_LONG).show();
+                            }
+
+                            Intent intent=new Intent(SetAmount.this,com.example.budgetmanager.MainActivity.class);
+                            startActivity(intent);
+
+                        }
+                        else {
+
+                            if (Total_Expense >= Integer.parseInt(target_amt)) {
+                                Toast.makeText(SetAmount.this, "Sorry, You are exceeding your Target Expense", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                boolean in = myDb.insertData(cat_type,category,Amount,date,Dday,Mmonth,Yyear);
+
+                                if (in == true)
+                                    Toast.makeText(SetAmount.this, "Data Added", Toast.LENGTH_LONG).show();
+                                else {
+                                    Toast.makeText(SetAmount.this, "Data not Added", Toast.LENGTH_LONG).show();
+                                }
+
+                                Intent intent=new Intent(SetAmount.this,com.example.budgetmanager.MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+
+                    }
 
                     boolean in = myDb.insertData(cat_type,category,Amount,date,Dday,Mmonth,Yyear);
 
@@ -209,9 +320,7 @@ public class SetAmount extends AppCompatActivity {
 
                     Intent intent=new Intent(SetAmount.this,com.example.budgetmanager.MainActivity.class);
                     startActivity(intent);
-
-
-                 }
+                }
             }
 
         });

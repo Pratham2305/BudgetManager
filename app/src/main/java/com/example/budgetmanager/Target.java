@@ -35,6 +35,7 @@ public class Target extends AppCompatActivity {
     Cursor cursor;
     String ID,category,amount,date,day,month,year,dateFrom,dateTo;
     DbHelper myDb;
+    DbHelperTarget targetDb;
     int d,Total_amt=0,year1,month1,day1,year2,month2,day2;
     private DatePickerDialog.OnDateSetListener DateSetListener,DateSetListener1;
 
@@ -42,6 +43,8 @@ public class Target extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_target);
+
+        targetDb= new DbHelperTarget(this);
 
         etAmt=findViewById(R.id.etAmt);
         tvDuration=findViewById(R.id.tvDuration);
@@ -117,45 +120,15 @@ public class Target extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if ((day1<day2 && month1<=month2&& year1<=year2) || (day1>=day2&&month2>month1&&year1<=year2) ) {
-
-                        myDb = new DbHelper(getApplicationContext());
-                        try {
-
-                            myDb.checkAndCopyDatabase();
-                            myDb.openDatabase();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            cursor = myDb.QueryData("select * from BudgetTable");
-                            if (cursor != null) {
-
-                                if (cursor.moveToFirst()) {
-
-                                    do {
-                                        ID = cursor.getString(0);
-                                        category = cursor.getString(2);
-                                        amount = cursor.getString(3);
-                                        date = cursor.getString(4);
-                                        day = cursor.getString(5);
-                                        month = cursor.getString(6);
-                                        year = cursor.getString(7);
-                                        d = Integer.parseInt(amount);
-
-                                        Total_amt+=d;
+                    boolean in =targetDb.insertData1(Target_amt,Integer.toString(day1),Integer.toString(day2),Integer.toString(month1),Integer.toString(month2),Integer.toString(year1),Integer.toString(year2));
 
 
-                                    } while (cursor.moveToNext());
-                                }
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    if (in == true)
+                        Toast.makeText(Target.this, "Target Added, BEST OF LUCK!!", Toast.LENGTH_LONG).show();
                     else {
-                        Toast.makeText(Target.this,"Kindly Add Correct date Range",Toast.LENGTH_LONG).show();
+                        Toast.makeText(Target.this, "Target not Added", Toast.LENGTH_LONG).show();
                     }
+
 
                 }
             });

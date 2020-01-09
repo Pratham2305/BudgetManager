@@ -8,19 +8,39 @@
     android:orientation="vertical"
     tools:context=".ReportActivity">
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center_horizontal"
+        android:text="Report"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="15dp">
 
-
     </com.github.mikephil.charting.charts.PieChart>
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/arrow_upward_black"
+        android:text="Amount(in ₹)"
+        android:textSize="15sp" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="50dp"></com.github.mikephil.charting.charts.BarChart>
+        android:layout_height="300dp">
+
+    </com.github.mikephil.charting.charts.BarChart>
 
 </LinearLayout>

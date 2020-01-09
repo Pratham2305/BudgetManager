@@ -21,6 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Budget.db";
     public static final String TABLE_NAME = "BudgetTable";
+    public static final String TABLE_NAME1 = "TargetTable";
     public static final String COL1 = "ID";
     public static final String COL2= "Category";
     public static final String COL3 = "SubCategory";
@@ -52,6 +53,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
+
     }
 
     @Override
@@ -59,6 +61,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
+
 
     }
 
@@ -146,9 +149,13 @@ super.close();
     }
 
 
-
-
-
-
     }
+
+
+
+
+
+
+
+
 

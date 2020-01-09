@@ -180,21 +180,34 @@ public class ReportActivity extends AppCompatActivity {
         barEntries.add(new BarEntry(13,a13));
         barEntries.add(new BarEntry(14,a14));
 
-
-        yEntrys.add(new PieEntry(a1,"Auto"));
-        yEntrys.add(new PieEntry(a2,"Bill"));
-        yEntrys.add(new PieEntry(a4,"Food"));
-        yEntrys.add(new PieEntry(a3,"Entertainment"));
-        yEntrys.add(new PieEntry(a5,"Fuel"));
-        yEntrys.add(new PieEntry(a6,"General"));
-        yEntrys.add(new PieEntry(a7,"Gift"));
-        yEntrys.add(new PieEntry(a8,"Gym"));
-        yEntrys.add(new PieEntry(a9,"Health"));
-        yEntrys.add(new PieEntry(a10,"Holidays"));
-        yEntrys.add(new PieEntry(a11,"House"));
-        yEntrys.add(new PieEntry(a12,"Clothes"));
-        yEntrys.add(new PieEntry(a13,"Rent"));;
-        yEntrys.add(new PieEntry(a14,"Sport"));
+        if (a1!=0){
+        yEntrys.add(new PieEntry(a1,"Auto"));}
+        if (a2!=0){
+        yEntrys.add(new PieEntry(a2,"Bill"));}
+        if (a4!=0){
+        yEntrys.add(new PieEntry(a4,"Food"));}
+        if (a3!=0){
+        yEntrys.add(new PieEntry(a3,"Entertainment"));}
+        if (a5!=0){
+        yEntrys.add(new PieEntry(a5,"Fuel"));}
+        if (a6!=0){
+        yEntrys.add(new PieEntry(a6,"General"));}
+        if (a7!=0){
+        yEntrys.add(new PieEntry(a7,"Gift"));}
+        if (a8!=0){
+        yEntrys.add(new PieEntry(a8,"Gym"));}
+        if (a9!=0){
+        yEntrys.add(new PieEntry(a9,"Health"));}
+        if (a10!=0){
+        yEntrys.add(new PieEntry(a10,"Holidays"));}
+        if (a11!=0){
+        yEntrys.add(new PieEntry(a11,"House"));}
+        if (a12!=0){
+        yEntrys.add(new PieEntry(a12,"Clothes"));}
+        if (a13!=0){
+        yEntrys.add(new PieEntry(a13,"Rent"));}
+        if (a14!=0){
+        yEntrys.add(new PieEntry(a14,"Sport"));}
 
 
 
